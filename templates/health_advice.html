@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Health Advice - Healthcare Chatbot{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Personalized Health Advice</h4>
+            </div>
+            <div class="card-body">
+                <div class="advice-container">
+                    {{ advice|nl2br|safe }}
+                </div>
+                
+                <div class="mt-4">
+                    <h5>General Health Tips</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item">Stay hydrated by drinking at least 8 glasses of water daily</li>
+                        <li class="list-group-item">Aim for 7-8 hours of quality sleep each night</li>
+                        <li class="list-group-item">Include at least 30 minutes of physical activity in your daily routine</li>
+                        <li class="list-group-item">Maintain a balanced diet rich in fruits, vegetables, and whole grains</li>
+                        <li class="list-group-item">Practice stress management techniques like meditation or deep breathing</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-footer bg-light">
+                <p class="small text-muted mb-0">
+                    This advice is personalized based on your medical history and symptoms. Always consult with a healthcare professional for medical concerns.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .advice-container {
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+        border-left: 4px solid #007bff;
+    }
+</style>
+{% endblock %} 

@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}Appointments - Healthcare Chatbot{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        <!-- Upcoming Appointments -->
+        <div class="card shadow mb-4">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Your Upcoming Appointments</h4>
+            </div>
+            <div class="card-body">
+                {% if appointments %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Doctor</th>
+                                <th>Specialization</th>
+                                <th>Date & Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for appt in appointments %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ appt.doctor_name }}</td>
+                                <td>{{ appt.specialization }}</td>
+                                <td>{{ appt.time }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="alert alert-info">
+                    You have no upcoming appointments. Book one below.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Book New Appointment -->
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">Book a New Appointment</h4>
+            </div>
+            <div class="card-body">
+                <h5>Available Doctors</h5>
+                
+                <div class="accordion mt-3" id="doctorsAccordion">
+                    {% for doc_id, info in doctors.items() %}
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading{{ doc_id }}">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                    data-bs-target="#collapse{{ doc_id }}" aria-expanded="false" aria-controls="collapse{{ doc_id }}">
+                                {{ info.name }} - {{ info.specialization }}
+                            </button>
+                        </h2>
+                        <div id="collapse{{ doc_id }}" class="accordion-collapse collapse" 
+                             aria-labelledby="heading{{ doc_id }}" data-bs-parent="#doctorsAccordion">
+                            <div class="accordion-body">
+                                {% if info.available %}
+                                <form method="POST" action="{{ url_for('appointments') }}">
+                                    <input type="hidden" name="doctor_id" value="{{ doc_id }}">
+                                    
+                                    <div class="mb-3">
+                                        <label class="form-label">Select an available time:</label>
+                                        <select name="time_index" class="form-select" required>
+                                            <option value="" selected disabled>Choose a time</option>
+                                            {% for time in info.available %}
+                                            <option value="{{ loop.index0 }}">{{ time }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-primary">Book Appointment</button>
+                                    </div>
+                                </form>
+                                {% else %}
+                                <div class="alert alert-warning">
+                                    No available time slots for this doctor.
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="card-footer bg-light">
+                <p class="small text-muted mb-0">
+                    Please arrive 15 minutes before your appointment time. Bring any relevant medical records.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

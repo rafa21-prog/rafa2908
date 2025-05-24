@@ -1,0 +1,10 @@
+# appointment.py
+
+from database import book_appointment, doctors
+
+def show_available_doctors():
+    return doctors
+
+def make_appointment(patient_id, doctor_id, time):
+    success = book_appointment(patient_id, doctor_id, time)
+    return success

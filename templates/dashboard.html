@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block title %}Health Dashboard - Healthcare Chatbot{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <h2>Welcome to Your Health Dashboard, {{ patient.name }}</h2>
+        <p class="text-muted">Track your health, appointments, and get personalized recommendations</p>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('chat') }}" class="btn btn-outline-primary">Chat with Assistant</a>
+                    <a href="{{ url_for('symptoms') }}" class="btn btn-outline-primary">Report Symptoms</a>
+                    <a href="{{ url_for('appointments') }}" class="btn btn-outline-primary">Book Appointment</a>
+                    <a href="{{ url_for('prescriptions') }}" class="btn btn-outline-primary">View Prescriptions</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Health Summary</h5>
+            </div>
+            <div class="card-body">
+                {% if recent_symptoms %}
+                <div class="mb-3">
+                    <h6>Recent Symptoms:</h6>
+                    <ul class="list-group">
+                        {% for symptom in recent_symptoms %}
+                        <li class="list-group-item">{{ symptom }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                
+                <div class="mb-3">
+                    <h6>Health Advice:</h6>
+                    <div class="alert alert-info">
+                        {{ health_advice|nl2br|safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Upcoming Appointments</h5>
+            </div>
+            <div class="card-body">
+                {% if appointments %}
+                <ul class="list-group">
+                    {% for appointment in appointments %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>Dr. {{ appointment.doctor_id }}</strong>
+                            <div class="text-muted small">{{ appointment.time }}</div>
+                        </div>
+                        <span class="badge bg-primary rounded-pill">{{ appointment.status }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p class="text-muted">No upcoming appointments</p>
+                <a href="{{ url_for('appointments') }}" class="btn btn-sm btn-outline-primary">Book Now</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Recent Prescriptions</h5>
+            </div>
+            <div class="card-body">
+                {% if prescriptions %}
+                <ul class="list-group">
+                    {% for prescription in prescriptions %}
+                    <li class="list-group-item">
+                        <strong>{{ prescription.medication }}</strong>
+                        <div>{{ prescription.dosage }}</div>
+                        <div class="text-muted small">{{ prescription.date }}</div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p class="text-muted">No recent prescriptions</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Health Metrics Tracker</h5>
+            </div>
+            <div class="card-body">
+                <p class="text-muted">Track your health metrics over time. Add new measurements to monitor your progress.</p>
+                
+                <form id="healthMetricsForm" class="row g-3" method="POST" action="{{ url_for('add_metrics') }}">
+                    <div class="col-md-3">
+                        <label for="weight" class="form-label">Weight (kg)</label>
+                        <input type="number" class="form-control" id="weight" name="weight" step="0.1">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="bloodPressure" class="form-label">Blood Pressure</label>
+                        <input type="text" class="form-control" id="bloodPressure" name="bloodPressure" placeholder="120/80">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="heartRate" class="form-label">Heart Rate (bpm)</label>
+                        <input type="number" class="form-control" id="heartRate" name="heartRate">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="bloodSugar" class="form-label">Blood Sugar (mg/dL)</label>
+                        <input type="number" class="form-control" id="bloodSugar" name="bloodSugar">
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Save Metrics</button>
+                    </div>
+                </form>
+                
+                <div class="mt-4">
+                    <h6>Metrics History</h6>
+                    <div class="alert alert-info">
+                        This feature will be available soon. Track your health metrics over time to see your progress.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Additional JavaScript can be added here as needed
+</script>
+{% endblock %} 

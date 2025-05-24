@@ -1,0 +1,24 @@
+# database.py
+
+patients = {}
+doctors = {
+    "doc1": {"name": "Dr. Rahim", "available": ["2025-05-20 10:00", "2025-05-21 14:00"]},
+    "doc2": {"name": "Dr. Karim", "available": ["2025-05-20 11:00", "2025-05-22 16:00"]},
+}
+
+appointments = []
+
+def add_patient(name, age, symptoms):
+    patient_id = f"pat{len(patients)+1}"
+    patients[patient_id] = {"name": name, "age": age, "symptoms": symptoms}
+    return patient_id
+
+def book_appointment(patient_id, doctor_id, time):
+    if time in doctors[doctor_id]["available"]:
+        appointments.append({
+            "patient_id": patient_id,
+            "doctor_id": doctor_id,
+            "time": time
+        })
+        return True
+    return False

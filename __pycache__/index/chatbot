@@ -1,0 +1,10 @@
+# chatbot.py
+
+from symptoms import symptom_diagnosis_map
+
+def get_diagnosis(symptoms):
+    diagnoses = []
+    for symptom in symptoms:
+        diagnosis = symptom_diagnosis_map.get(symptom.lower(), "No clear diagnosis found.")
+        diagnoses.append(f"{symptom.title()}: {diagnosis}")
+    return diagnoses

@@ -1,0 +1,98 @@
+/* Custom styles for Healthcare Chatbot */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f8fa;
+}
+
+/* Navbar styling */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+/* Card styling */
+.card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.card-header {
+    font-weight: bold;
+}
+
+/* Button styling */
+.btn-primary {
+    background-color: #1a73e8;
+    border-color: #1a73e8;
+}
+
+.btn-primary:hover {
+    background-color: #0d62d0;
+    border-color: #0d62d0;
+}
+
+/* Chat styling */
+.chat-container {
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+}
+
+/* Footer styling */
+footer {
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.05);
+}
+
+/* Alerts styling */
+.alert {
+    border-radius: 10px;
+}
+
+/* Form controls */
+.form-control, .form-select {
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.form-control:focus, .form-select:focus {
+    box-shadow: 0 0 0 0.25rem rgba(26, 115, 232, 0.25);
+    border-color: #1a73e8;
+}
+
+/* Tables */
+.table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table th {
+    background-color: #f8f9fa;
+}
+
+/* Accordion styling */
+.accordion-button:not(.collapsed) {
+    background-color: #e7f1ff;
+    color: #1a73e8;
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+    border-color: rgba(0,0,0,.125);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 20px;
+    }
+} 

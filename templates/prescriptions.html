@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Prescriptions - Healthcare Chatbot{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Your Prescription History</h4>
+            </div>
+            <div class="card-body">
+                {% if prescriptions %}
+                <div class="accordion" id="prescriptionAccordion">
+                    {% for rx in prescriptions %}
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading{{ rx.id }}">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                    data-bs-target="#collapse{{ rx.id }}" aria-expanded="false" aria-controls="collapse{{ rx.id }}">
+                                {{ rx.medication }} - {{ rx.date }}
+                            </button>
+                        </h2>
+                        <div id="collapse{{ rx.id }}" class="accordion-collapse collapse" 
+                             aria-labelledby="heading{{ rx.id }}" data-bs-parent="#prescriptionAccordion">
+                            <div class="accordion-body">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ rx.medication }}</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted">Prescribed on {{ rx.date }}</h6>
+                                        <p class="card-text">
+                                            <strong>Dosage:</strong> {{ rx.dosage }}<br>
+                                            <strong>Instructions:</strong> {{ rx.instructions }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="alert alert-info">
+                    <h5 class="alert-heading">No Prescriptions Found</h5>
+                    <p>You don't have any prescriptions in your history yet. After a doctor's appointment, your prescriptions will appear here.</p>
+                </div>
+                {% endif %}
+            </div>
+            <div class="card-footer bg-light">
+                <p class="small text-muted mb-0">
+                    Always follow your doctor's instructions when taking medications. Contact your healthcare provider if you have any questions about your prescriptions.
+                </p>
+            </div>
+        </div>
+        
+        {% if prescriptions %}
+        <div class="card mt-4 shadow">
+            <div class="card-header bg-info text-white">
+                <h4 class="mb-0">Medication Reminders</h4>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning">
+                    <h5 class="alert-heading">Important Medication Tips</h5>
+                    <ul class="mb-0">
+                        <li>Take medications as prescribed by your doctor</li>
+                        <li>Don't skip doses or stop taking medication without consulting your doctor</li>
+                        <li>Store medications properly according to instructions</li>
+                        <li>Be aware of potential side effects and when to seek medical attention</li>
+                        <li>Keep track of when you need to refill prescriptions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %} 

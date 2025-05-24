@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Symptoms - Healthcare Chatbot{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card shadow mb-4">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Report Your Symptoms</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('symptoms') }}">
+                    <div class="mb-3">
+                        <label for="symptoms" class="form-label">Please enter your symptoms (separated by commas):</label>
+                        <input type="text" class="form-control" id="symptoms" name="symptoms" placeholder="e.g., fever, headache, cough" required>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Get Diagnosis</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer bg-light">
+                <p class="small text-muted mb-0">
+                    Be as specific as possible with your symptoms for a more accurate diagnosis.
+                </p>
+            </div>
+        </div>
+
+        {% if diagnosis %}
+        <div class="card shadow mb-4">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">Diagnosis Results</h4>
+            </div>
+            <div class="card-body">
+                <h5>Based on your symptoms, here's what we found:</h5>
+                <ul class="list-group mt-3">
+                    {% for item in diagnosis %}
+                    <li class="list-group-item">{{ item }}</li>
+                    {% endfor %}
+                </ul>
+                
+                <div class="alert alert-warning mt-4">
+                    <h5 class="alert-heading">Important Note</h5>
+                    <p>This is not a substitute for professional medical advice. Please consult with a healthcare provider for proper diagnosis and treatment.</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if recommended_doctors %}
+        <div class="card shadow">
+            <div class="card-header bg-info text-white">
+                <h4 class="mb-0">Recommended Specialists</h4>
+            </div>
+            <div class="card-body">
+                <h5>Based on your symptoms, we recommend these specialists:</h5>
+                <div class="table-responsive mt-3">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Doctor</th>
+                                <th>Specialization</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for doc_id, info in recommended_doctors.items() %}
+                            <tr>
+                                <td>{{ info.name }}</td>
+                                <td>{{ info.specialization }}</td>
+                                <td>
+                                    <a href="{{ url_for('appointments') }}" class="btn btn-sm btn-primary">Book Appointment</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %} 

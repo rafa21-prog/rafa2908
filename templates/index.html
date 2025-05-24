@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Healthcare Chatbot{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="jumbotron bg-light p-4 rounded">
+            <h1 class="display-4">Hello, {{ name }}!</h1>
+            <p class="lead">Welcome to your Healthcare Dashboard</p>
+            <hr class="my-4">
+            <p>What would you like to do today?</p>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <h5 class="card-title">Chat with Assistant</h5>
+                <p class="card-text">Ask health-related questions and get personalized responses.</p>
+                <a href="{{ url_for('chat') }}" class="btn btn-primary">Start Chat</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <h5 class="card-title">Report Symptoms</h5>
+                <p class="card-text">Describe your symptoms and get possible diagnoses.</p>
+                <a href="{{ url_for('symptoms') }}" class="btn btn-primary">Report Symptoms</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <h5 class="card-title">Book Appointment</h5>
+                <p class="card-text">Schedule appointments with healthcare providers.</p>
+                <a href="{{ url_for('appointments') }}" class="btn btn-primary">View Doctors</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-2">
+    <div class="col-md-6 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <h5 class="card-title">Upcoming Appointments</h5>
+                <p class="card-text">Check your scheduled appointments with doctors.</p>
+                <a href="{{ url_for('appointments') }}" class="btn btn-primary">View Appointments</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <h5 class="card-title">Prescription History</h5>
+                <p class="card-text">Access your medication prescriptions.</p>
+                <a href="{{ url_for('prescriptions') }}" class="btn btn-primary">View Prescriptions</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
